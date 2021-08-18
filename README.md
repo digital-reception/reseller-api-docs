@@ -1,5 +1,7 @@
 # Reseller API Docs
 
+Demo: https://digital-reception.github.io/reseller-api-docs/
+
 This repo is intended to host our Reseller endpoint OpenAPI Spec (aka Swagger) for reseller developers.
 
 It is powered by [Swagger UI](https://swagger.io/tools/swagger-ui/), and is insipred by Patric Gutersohn's [
