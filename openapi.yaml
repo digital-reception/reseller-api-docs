@@ -180,6 +180,8 @@ paths:
                         type: string
                       email:
                         type: string
+                      access_level:
+                        type: string
                 reseller_organisation_id:
                   type: string
                 key:
@@ -191,6 +193,7 @@ paths:
               - first_name: John
                 last_name: Smith
                 email: john@smith.com
+                access_level: admin
               reseller_organisation_id: '101'
               key: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
       responses:
