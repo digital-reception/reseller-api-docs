@@ -81,6 +81,8 @@ paths:
                             type: string
                           created_at:
                             type: string
+                          usage_level:
+                            type: string
                     users:
                       type: integer
               example:
