@@ -125,6 +125,34 @@ paths:
                   reseller_location_id: '33'
                   created_at: '2021-08-14T22:35:03Z'
                 users: 1
+  "/v1/r/check_email_exists":
+    get:
+      summary: check_email_exists
+      tags:
+      - Reseller API
+      parameters:
+      - name: email
+        in: query
+        schema:
+          type: string
+        example: test@user100.com
+      - name: key
+        in: query
+        schema:
+          type: string
+        example: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      responses:
+        '200':
+          description: Returns false if the email is not taken
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+              example:
+                result: false
   "/v1/r/refresh_api_key":
     post:
       summary: refresh_api_key
@@ -307,3 +335,4 @@ paths:
                   reseller_location_id: '22'
                   created_at: '2021-08-14T22:35:03Z'
                 users: 1
+
