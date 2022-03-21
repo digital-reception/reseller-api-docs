@@ -35,6 +35,41 @@ paths:
               example:
                 primary_key: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
                 secondary_key: KTXKEhwIROxMfMwZ0G7a3wPLVJ7H69jb8blUoHQzsOqA
+  "/v1/r/list_locations":
+    get:
+      summary: list_locations
+      tags:
+      - Reseller API
+      parameters:
+      - name: key
+        in: query
+        schema:
+          type: string
+        example: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      - name: reseller_organisation_id
+        in: query
+        schema:
+          type: string
+        example: '101'
+      responses:
+        '200':
+          description: Returns a list of Location names and reseller_location_ids attached to the Organisation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    reseller_location_id:
+                      type: string
+              example:
+              - name: Main building
+                reseller_location_id: '22'
+              - name: Other building
+                reseller_location_id: '23'
   "/v1/r/list_organisations":
     get:
       summary: list_organisations
