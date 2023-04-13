@@ -4,8 +4,10 @@ info:
   title: Digital Reception
   version: 1.0.0
 servers:
-- url: https://api.dreception.com
-  description: Reseller API
+- url: "https://api-demo.dreception.com"
+  description: "Reseller Demo API"
+- url: "https://api.dreception.com"
+  description: "Reseller API"
 paths:
   "/v1/r/list_api_keys":
     get:
