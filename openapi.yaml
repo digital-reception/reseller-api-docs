@@ -406,17 +406,17 @@ paths:
                     value:
                       type: integer
               example:
-                name: "Events in last 7 days"
+              - name: "Events in last 7 days"
                 value: 20
-                name: "Events in last 24 hours"
+              - name: "Events in last 24 hours"
                 value: 5
-                name: "Visitor care notes in last 30 days"
+              - name: "Visitor care notes in last 30 days"
                 value: 15
-                name: "Resident care notes in last 30 days"
+              - name: "Resident care notes in last 30 days"
                 value: 5
-                name: "Total number of people"
+              - name: "Total number of people"
                 value: 100
-                name: "Locations used in last 30 days"
+              - name: "Locations used in last 30 days"
                 value: 2
-                name: "People used in last 30 days"
+              - name: "People used in last 30 days"
                 value: 30
