@@ -110,9 +110,13 @@ paths:
                             type: string
                           timezone:
                             type: string
+                          postcode:
+                            type: string
                           regulator_reference:
                             type: string
                           reseller_location_id:
+                            type: string
+                          reseller_reference:
                             type: string
                           created_at:
                             type: string
@@ -131,13 +135,17 @@ paths:
                 locations:
                 - name: Main building
                   timezone: London
+                  postcode: AB13DE
                   regulator_reference: LA12341
                   reseller_location_id: '22'
+                  reseller_reference: 'C2TY'
                   created_at: '2021-08-14T22:35:03Z'
                 - name: Other building
                   timezone: London
+                  postcode: AB14EF
                   regulator_reference: LA23476
                   reseller_location_id: '23'
+                  reseller_reference: 'C5WD'
                   created_at: '2021-08-14T22:35:03Z'
                   usage_level: high
                   autumna_integration: false
@@ -150,22 +158,28 @@ paths:
                 locations:
                 - name: North wing
                   timezone: London
+                  postcode: FG67HI
                   regulator_reference: CQC12345
                   reseller_location_id: '25'
+                  reseller_reference: 'C5HD'
                   created_at: '2021-08-14T22:35:03Z'
                   usage_level: low
                   autumna_integration: true
                 - name: South wing
                   timezone: London
+                  postcode: FG68IJ
                   regulator_reference: CQC23456
                   reseller_location_id: '26'
+                  reseller_reference: 'C6HD'
                   created_at: '2021-08-14T22:35:03Z'
                   usage_level: high
                   autumna_integration: true
                 - name: West wing
                   timezone: Paris
+                  postcode: FG69JK
                   regulator_reference: CQC34567
                   reseller_location_id: '33'
+                  reseller_reference: 'C7HD'
                   created_at: '2021-08-14T22:35:03Z'
                   usage_level: never
                   autumna_integration: false
@@ -292,7 +306,11 @@ paths:
                   type: string
                 regulator_reference:
                   type: string
+                postcode:
+                  type: string
                 reseller_location_id:
+                  type: string
+                reseller_reference:
                   type: string
                 reseller_organisation_id:
                   type: string
@@ -301,7 +319,9 @@ paths:
             example:
               name: Alexander Fleming House
               regulator_reference: CQC45678
+              postcode: 'HI8 9LM'
               reseller_location_id: '22'
+              reseller_reference: 'XYZ123'
               reseller_organisation_id: '101'
               key: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
       responses:
@@ -333,7 +353,11 @@ paths:
                           type: string
                         regulator_reference:
                           type: string
+                        postcode:
+                          type: string
                         reseller_location_id:
+                          type: string
+                        reseller_reference:
                           type: string
                         created_at:
                           type: string
@@ -348,8 +372,10 @@ paths:
                 locations:
                 - name: Alexander Fleming House
                   timezone: London
+                  postcode: 'AB12CD'
                   regulator_reference: CQC45678
                   reseller_location_id: '22'
+                  reseller_reference: '22'
                   created_at: '2021-08-14T22:35:03Z'
                 users: 1
   "/v1/r/check_email_exists":
