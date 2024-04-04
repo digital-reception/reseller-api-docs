@@ -1,0 +1,496 @@
+---
+openapi: 3.0.3
+info:
+  title: Digital Reception API
+  version: 1.0.0
+servers:
+- url: https://api-demo.dreception.com
+  description: Demo API
+- url: https://api.dreception.com
+  description: Production API
+paths:
+  "/v1/r/check_email_exists":
+    get:
+      summary: check_email_exists
+      tags:
+      - API
+      parameters:
+      - name: email
+        in: query
+        required: false
+        schema:
+          type: string
+        example: test@user100.com
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        example: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      responses:
+        '200':
+          description: Returns false if the email is not taken
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                required:
+                - result
+              example:
+                result: false
+  "/v1/r/create_location":
+    post:
+      summary: create_location
+      tags:
+      - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                regulator_reference:
+                  type: string
+                reseller_location_id:
+                  type: string
+                reseller_organisation_id:
+                  type: string
+                key:
+                  type: string
+                postcode:
+                  type: string
+                reseller_reference:
+                  type: string
+              required:
+              - name
+              - regulator_reference
+              - reseller_location_id
+              - reseller_organisation_id
+              - key
+            example:
+              name: Alexander Fleming House
+              regulator_reference: CQC45678
+              reseller_location_id: '22'
+              reseller_organisation_id: '101'
+              key: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+              postcode: HI8 9LM
+              reseller_reference: XYZ123
+      responses:
+        '200':
+          description: Creates a new Location
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  type_of_organisation:
+                    type: string
+                  timezone:
+                    type: string
+                  reseller_organisation_id:
+                    type: string
+                  created_at:
+                    type: string
+                  locations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        timezone:
+                          type: string
+                        regulator_reference:
+                          type: string
+                        postcode:
+                          nullable: true
+                          type: string
+                        reseller_location_id:
+                          type: string
+                        reseller_reference:
+                          nullable: true
+                          type: string
+                        created_at:
+                          type: string
+                      required:
+                      - name
+                      - timezone
+                      - regulator_reference
+                      - postcode
+                      - reseller_location_id
+                      - reseller_reference
+                      - created_at
+                  users:
+                    type: integer
+                required:
+                - name
+                - type_of_organisation
+                - timezone
+                - reseller_organisation_id
+                - created_at
+                - locations
+                - users
+              example:
+                name: Carehome
+                type_of_organisation: Social Care
+                timezone: London
+                reseller_organisation_id: '101'
+                created_at: '2024-02-06T15:32:42Z'
+                locations:
+                - name: Alexander Fleming House
+                  timezone: London
+                  regulator_reference: CQC45678
+                  postcode: HI8 9LM
+                  reseller_location_id: '22'
+                  reseller_reference: XYZ123
+                  created_at: '2024-02-06T15:32:42Z'
+                users: 1
+  "/v1/r/create_organisation":
+    post:
+      summary: create_organisation
+      tags:
+      - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type_of_organisation:
+                  type: string
+                users_attributes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      access_level:
+                        type: string
+                    required:
+                    - first_name
+                    - last_name
+                    - email
+                    - access_level
+                reseller_organisation_id:
+                  type: string
+                key:
+                  type: string
+              required:
+              - name
+              - type_of_organisation
+              - users_attributes
+              - reseller_organisation_id
+              - key
+            example:
+              name: Fellowship Care
+              type_of_organisation: Social Care
+              users_attributes:
+              - first_name: John
+                last_name: Smith
+                email: john@smith.com
+                access_level: admin
+              reseller_organisation_id: '101'
+              key: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      responses:
+        '200':
+          description: Creates a new Organisation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  type_of_organisation:
+                    type: string
+                  timezone:
+                    type: string
+                  reseller_organisation_id:
+                    type: string
+                  created_at:
+                    type: string
+                  locations:
+                    type: array
+                    items: {}
+                  users:
+                    type: integer
+                required:
+                - name
+                - type_of_organisation
+                - timezone
+                - reseller_organisation_id
+                - created_at
+                - locations
+                - users
+              example:
+                name: Fellowship Care
+                type_of_organisation: Social Care
+                timezone: London
+                reseller_organisation_id: '101'
+                created_at: '2024-02-06T15:32:42Z'
+                locations: []
+                users: 1
+  "/v1/r/list_api_keys":
+    get:
+      summary: list_api_keys
+      tags:
+      - Config
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        example: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      responses:
+        '200':
+          description: Returns your API Keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  primary_key:
+                    type: string
+                  secondary_key:
+                    type: string
+                required:
+                - primary_key
+                - secondary_key
+              example:
+                primary_key: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+                secondary_key: KTXKEhwIROxMfMwZ0G7a3wPLVJ7H69jb8blUoHQzsOqA
+  "/v1/r/list_organisations":
+    get:
+      summary: list_organisations
+      tags:
+      - API
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        example: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      responses:
+        '200':
+          description: Returns a list of your Organisations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    type_of_organisation:
+                      type: string
+                    timezone:
+                      type: string
+                    reseller_organisation_id:
+                      type: string
+                    created_at:
+                      type: string
+                    locations:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          timezone:
+                            type: string
+                          regulator_reference:
+                            type: string
+                          postcode:
+                            nullable: true
+                            type: string
+                          reseller_location_id:
+                            type: string
+                          reseller_reference:
+                            nullable: true
+                            type: string
+                          created_at:
+                            type: string
+                          usage_level:
+                            type: string
+                          autumna_integration:
+                            type: boolean
+                        required:
+                        - name
+                        - timezone
+                        - regulator_reference
+                        - postcode
+                        - reseller_location_id
+                        - reseller_reference
+                        - created_at
+                        - usage_level
+                        - autumna_integration
+                    users:
+                      type: integer
+                  required:
+                  - name
+                  - type_of_organisation
+                  - timezone
+                  - reseller_organisation_id
+                  - created_at
+                  - locations
+                  - users
+              example:
+              - name: Carehome
+                type_of_organisation: Social Care
+                timezone: London
+                reseller_organisation_id: '101'
+                created_at: '2024-02-06T15:32:41Z'
+                locations:
+                - name: Main building
+                  timezone: London
+                  regulator_reference: LA12341
+                  postcode: AB13DE
+                  reseller_location_id: '22'
+                  reseller_reference: C2TY
+                  created_at: '2024-02-06T15:32:41Z'
+                  usage_level: never
+                  autumna_integration: false
+                - name: Other building
+                  timezone: London
+                  regulator_reference: LA23476
+                  postcode: AB14EF
+                  reseller_location_id: '23'
+                  reseller_reference: C5WD
+                  created_at: '2024-02-06T15:32:41Z'
+                  usage_level: never
+                  autumna_integration: false
+                users: 2
+              - name: School
+                type_of_organisation: School
+                timezone: Paris
+                reseller_organisation_id: '102'
+                created_at: '2024-02-06T15:32:41Z'
+                locations:
+                - name: North wing
+                  timezone: London
+                  regulator_reference: CQC12345
+                  postcode: FG67HI
+                  reseller_location_id: '25'
+                  reseller_reference: C5HD
+                  created_at: '2024-02-06T15:32:41Z'
+                  usage_level: never
+                  autumna_integration: false
+                - name: South wing
+                  timezone: London
+                  regulator_reference: CQC23456
+                  postcode: FG68IJ
+                  reseller_location_id: '26'
+                  reseller_reference: C6HD
+                  created_at: '2024-02-06T15:32:41Z'
+                  usage_level: never
+                  autumna_integration: false
+                - name: West wing
+                  timezone: Paris
+                  regulator_reference: CQC34567
+                  postcode: FG69JK
+                  reseller_location_id: '33'
+                  reseller_reference: C7HD
+                  created_at: '2024-02-06T15:32:41Z'
+                  usage_level: never
+                  autumna_integration: false
+                users: 1
+  "/v1/r/refresh_api_key":
+    post:
+      summary: refresh_api_key
+      tags:
+      - Config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                key:
+                  type: string
+              required:
+              - type
+              - key
+            example:
+              type: primary
+              key: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      responses:
+        '200':
+          description: Refreshes one of your API Keys
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  primary_key:
+                    type: string
+                  secondary_key:
+                    type: string
+                required:
+                - primary_key
+                - secondary_key
+              example:
+                primary_key: PWfyocYXs9xDcooDEkkJWwo28eesiH6Ka02J1Ru2Eetw
+                secondary_key: KTXKEhwIROxMfMwZ0G7a3wPLVJ7H69jb8blUoHQzsOqA
+  "/v1/r/usage_stats":
+    get:
+      summary: usage_stats
+      tags:
+      - API
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          type: string
+        example: zR7rsYew0Q_yLMk2jLgOvAthAf5n5q11TSYrRjO7aNjQ
+      responses:
+        '200':
+          description: Returns stats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: integer
+                  required:
+                  - name
+                  - value
+              example:
+              - name: Events in last 7 days
+                value: 20
+              - name: Events in last 24 hours
+                value: 2
+              - name: Visitor care notes in last 30 days
+                value: 0
+              - name: Resident care notes in last 30 days
+                value: 0
+              - name: Total number of people
+                value: 1
+              - name: Locations used in last 30 days
+                value: 1
+              - name: People used in last 30 days
+                value: 1
